@@ -5,6 +5,7 @@ import com.blps_lab1.demo.DTO.ResponseMessageDTO;
 import com.blps_lab1.demo.beans.Notification;
 import com.blps_lab1.demo.beans.Product;
 import com.blps_lab1.demo.beans.User;
+import com.blps_lab1.demo.exceptions.ProductNotFoundException;
 import com.blps_lab1.demo.exceptions.UserNotFoundException;
 import com.blps_lab1.demo.repository.NotificationRepository;
 import com.blps_lab1.demo.service.DTOConverter;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @Service
 public class NotificationRepositoryService {
@@ -47,10 +49,18 @@ public class NotificationRepositoryService {
     }
 
     public ResponseEntity getAllNotificationForUser(Long id){
-        ArrayList<Product> products;
-        products = this.findAllByUserID(id);
-        if (products == null) {
-            return new ResponseEntity("Пользователь не найден", HttpStatus.BAD_REQUEST);
+        ArrayList<Product> products = new ArrayList<>();
+        ArrayList<Notification> products_ids;
+        products_ids = this.findAllByUserID(id);
+        Iterator iterator = products_ids.iterator();
+        Notification notification;
+        while (iterator.hasNext()){
+            notification = (Notification) iterator.next();
+            try {
+                products.add(productRepositoryService.findByID(notification.getProduct().getID()));
+            }catch (ProductNotFoundException e){
+
+            }
         }
         ArrayList<ProductDTO> productDTOS = new ArrayList<>();
         for (Product product: products){
@@ -100,8 +110,8 @@ public class NotificationRepositoryService {
         }
     }
 
-    public ArrayList<Product> findAllByUserID(Long id){
-        ArrayList<Product> arrayList = this.notificationRepository.findAllByUserID(id);
+    public ArrayList<Notification> findAllByUserID(Long id){
+        ArrayList<Notification> arrayList = this.notificationRepository.findAllByUserID(id);
         return arrayList;
     }
 

@@ -60,7 +60,7 @@ public class ProductRepositoryService {
         try {
             Product product = dtoConverter.productFromDTOConvertor(productDTO);
             this.productRepository.save(product);
-            messageDTO.setMessage("Petition was added");
+            messageDTO.setMessage("Product was added");
             return new ResponseEntity<>(messageDTO, HttpStatus.CREATED);
         } catch (DataIntegrityViolationException e){
             String answerText = "";

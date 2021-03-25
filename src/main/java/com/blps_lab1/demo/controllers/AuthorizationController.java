@@ -5,6 +5,7 @@ import com.blps_lab1.demo.DTO.UserDTO;
 import com.blps_lab1.demo.exceptions.UserValidationException;
 import com.blps_lab1.demo.service.UserRepositoryService;
 import com.blps_lab1.demo.validation.ValidationUserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,8 @@ public class AuthorizationController {
     private ResponseMessageDTO message;
 
 
-    @PutMapping("/register")
+    @PostMapping("/register")
+    @ApiOperation(value = "Register new user")
     public ResponseEntity<ResponseMessageDTO> register(@RequestBody UserDTO userDTO) {
         this.message = new ResponseMessageDTO();
         try{
@@ -36,6 +38,7 @@ public class AuthorizationController {
     }
 
     @PostMapping("/auth")
+    @ApiOperation(value = "Authorization")
     public ResponseEntity auth(@RequestBody UserDTO userDTO){
         this.message = new ResponseMessageDTO();
         try{

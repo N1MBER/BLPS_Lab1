@@ -9,6 +9,15 @@ public class UserDTO implements Serializable {
     private String name;
     private String surname;
 
+    public UserDTO(String email, String name, String surname, String password){
+        this.email = email;
+        this.surname = surname;
+        this.name = name;
+        this.password = password;
+    }
+
+    public UserDTO(){}
+
     public void setDTO(Long id, String email, String name, String surname){
         this.email = email;
         this.Id = id;

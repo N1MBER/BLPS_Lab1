@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ValidationProductService {
-    public void validateProductDTO(ProductDTO petitionDTO) throws ProductValidationException {
-        if(!validateNameProductDTO(petitionDTO.getName())){
+    public void validateProductDTO(ProductDTO productDTO) throws ProductValidationException {
+        if(!validateNameProductDTO(productDTO.getName())){
             throw new ProductValidationException("Invalid name", HttpStatus.BAD_REQUEST);
-        }else if(!validatePriceProductDTO(petitionDTO.getPrice())){
+        }else if(!validatePriceProductDTO(productDTO.getPrice())){
             throw new ProductValidationException("Price must be a positive number", HttpStatus.BAD_REQUEST);
         }
 

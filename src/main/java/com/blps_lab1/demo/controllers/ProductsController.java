@@ -26,8 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/lab")
-@Api(value = "Petition api")
+@RequestMapping("/api")
+@Api(value = "Product api")
 
 public class ProductsController {
 
@@ -51,8 +51,8 @@ public class ProductsController {
 
 
     @PutMapping("/add_product")
-    @ApiOperation(value = "add petition")
-    public ResponseEntity<ResponseMessageDTO> addPetition(@RequestBody ProductDTO productDTO, HttpServletRequest request){
+    @ApiOperation(value = "Add new product")
+    public ResponseEntity<ResponseMessageDTO> addProduct(@RequestBody ProductDTO productDTO, HttpServletRequest request){
         message = new ResponseMessageDTO();
         try{
             validationProductService.validateProductDTO(productDTO);
@@ -64,17 +64,20 @@ public class ProductsController {
     }
 
     @GetMapping("/products")
+    @ApiOperation(value = "Get list of products")
     public ArrayList<ProductDTO> getAllProducts(){
         return this.productRepositoryService.getAllProducts();
     }
 
     @GetMapping("/users")
+    @ApiOperation(value = "Get list of users")
     public ArrayList<UserDTO> getAllUsers() {
         return this.userRepositoryService.getAllUsers();
     }
 
     @GetMapping("/favorites")
-    public ResponseEntity getAllFavorites(@RequestBody UserDTO userDTO, HttpServletRequest request){
+    @ApiOperation(value = "Get favorites for user")
+    public ResponseEntity getAllFavorites(HttpServletRequest request){
         message = new ResponseMessageDTO();
         try{
             User user = this.userRepositoryService.getUserFromRequest(request);
@@ -86,7 +89,8 @@ public class ProductsController {
     }
 
     @GetMapping("/cart")
-    public ResponseEntity getCart(@RequestBody UserDTO userDTO, HttpServletRequest request){
+    @ApiOperation(value = "Get cart for user")
+    public ResponseEntity getCart(HttpServletRequest request){
         message = new ResponseMessageDTO();
         try{
             User user = this.userRepositoryService.getUserFromRequest(request);
@@ -99,7 +103,8 @@ public class ProductsController {
 
 
     @PutMapping("/favorite/{id}")
-    public ResponseEntity favorite(@RequestBody UserDTO userDTO, @PathVariable("id") Long id, HttpServletRequest request){
+    @ApiOperation(value = "Add new favorite")
+    public ResponseEntity favorite(@PathVariable("id") Long id, HttpServletRequest request){
         message = new ResponseMessageDTO();
         try{
             User user = this.userRepositoryService.getUserFromRequest(request);
@@ -117,7 +122,8 @@ public class ProductsController {
     }
 
     @PutMapping("/add_to_cart/{id}")
-    public ResponseEntity addToCart(@RequestBody UserDTO userDTO, @PathVariable("id") Long id, HttpServletRequest request){
+    @ApiOperation(value = "Add new product")
+    public ResponseEntity addToCart(@PathVariable("id") Long id, HttpServletRequest request){
         message = new ResponseMessageDTO();
         try{
             User user = this.userRepositoryService.getUserFromRequest(request);
@@ -135,6 +141,7 @@ public class ProductsController {
     }
 
     @GetMapping("/product/{id}")
+    @ApiOperation(value = "Get product by id")
     public ResponseEntity getProductById(@PathVariable("id") Long id){
         message = new ResponseMessageDTO();
         try {
@@ -147,7 +154,8 @@ public class ProductsController {
     }
 
     @DeleteMapping("/cart/{id}")
-    public ResponseEntity deleteItem(@RequestBody UserDTO userDTO, @PathVariable("id") Long id, HttpServletRequest request){
+    @ApiOperation(value = "Delete item by id")
+    public ResponseEntity deleteItem(@PathVariable("id") Long id, HttpServletRequest request){
         message = new ResponseMessageDTO();
         try{
             User user = this.userRepositoryService.getUserFromRequest(request);
@@ -165,7 +173,8 @@ public class ProductsController {
     }
 
     @DeleteMapping("/unfavorite/{id}")
-    public ResponseEntity unfavorite(@RequestBody UserDTO userDTO, @PathVariable("id") Long id, HttpServletRequest request){
+    @ApiOperation(value = "Delete item from favorite list")
+    public ResponseEntity unfavorite(@PathVariable("id") Long id, HttpServletRequest request){
         message = new ResponseMessageDTO();
         try{
             User user = this.userRepositoryService.getUserFromRequest(request);
@@ -183,15 +192,12 @@ public class ProductsController {
     }
 
     @DeleteMapping("/clear_cart")
-    public ResponseEntity clearCart(@RequestBody UserDTO userDTO, HttpServletRequest request){
+    @ApiOperation(value = "Clear all items from cart")
+    public ResponseEntity clearCart(HttpServletRequest request){
         message = new ResponseMessageDTO();
         try{
             User user = this.userRepositoryService.getUserFromRequest(request);
-            boolean flag = this.cartRepositoryService.deleteAllByUserID(user.getID());
-            if (flag)
-                return new ResponseEntity<>(message, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return this.cartRepositoryService.clearCart(user);
         }catch (UserNotFoundException e){
             this.message.setMessage(e.getErrMessage());
             return new ResponseEntity<>(message, e.getErrStatus());

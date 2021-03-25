@@ -60,7 +60,7 @@ public class KomusConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean(name = "ProductDTO")
     @Scope(scopeName = "prototype")
-    public ProductDTO getPetitionDTO() {
+    public ProductDTO getProductDTO() {
         return new ProductDTO();
     }
 

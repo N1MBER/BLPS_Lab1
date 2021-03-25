@@ -17,7 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter({"/petition/add","/petition/subscribe"})
+@WebFilter({
+        "/api/add_product",
+        "/api/add_to_cart/*",
+        "/api/cart",
+        "/api/cart/*",
+        "/api/clear_cart",
+        "/api/favorite/*",
+        "/api/favorites",
+        "/api/unfavorite/*",
+        "/api/users"
+})
 public class JwtFilter implements Filter{
 
     @Autowired
