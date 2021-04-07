@@ -43,7 +43,7 @@ public class UserRepositoryService {
         String email = jwtUtils.getEmailFromToken(token);
         try {
             User user = this.findByEmail(email);
-            logger.log(Level.INFO, "getting user from request" + user.getEmail());
+            logger.log(Level.INFO, "getting user from request " + user.getEmail());
             return user;
         }catch (UserNotFoundException e){
             throw e;

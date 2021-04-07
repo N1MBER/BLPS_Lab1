@@ -29,18 +29,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Lazy
     private JwtFilter jwtFilter;
 
-//    private static final String[] AUTH_WHITELIST = {
-//            "/swagger-resources/**",
-//            "/swagger-ui.html",
-//            "/v2/api-docs",
-//            "/webjars/**"
-//    };
-//
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers(AUTH_WHITELIST);
-//    }
-
     @Bean
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();

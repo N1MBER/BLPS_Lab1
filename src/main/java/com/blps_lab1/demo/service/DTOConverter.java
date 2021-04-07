@@ -1,7 +1,9 @@
 package com.blps_lab1.demo.service;
 
+import com.blps_lab1.demo.DTO.OrderDTO;
 import com.blps_lab1.demo.DTO.ProductDTO;
 import com.blps_lab1.demo.DTO.UserDTO;
+import com.blps_lab1.demo.beans.Order;
 import com.blps_lab1.demo.beans.Product;
 import com.blps_lab1.demo.beans.User;
 import org.springframework.stereotype.Service;
@@ -57,4 +59,19 @@ public class DTOConverter {
             product.setID(productDTO.getId());
         return product;
     }
+
+    public OrderDTO orderDTOConvertor(Order order){
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setStatus(order.getStatus());
+        ArrayList <ProductDTO> productDTOS = new ArrayList<>();
+        for (Product product: order.getProducts()){
+            productDTOS.add(this.productDTOConvertor(product));
+        }
+        orderDTO.setProducts(productDTOS);
+        orderDTO.setSubmit_date(order.getSubmit_date());
+        orderDTO.setUpdate_date(order.getUpdate_date());
+        orderDTO.setUser(this.userDTOConvertor(order.getUser()));
+        return orderDTO;
+    }
+
 }

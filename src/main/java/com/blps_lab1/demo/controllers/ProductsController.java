@@ -1,23 +1,18 @@
 package com.blps_lab1.demo.controllers;
 
 
-import com.blps_lab1.demo.DTO.NotificationDTO;
-import com.blps_lab1.demo.DTO.ProductDTO;
-import com.blps_lab1.demo.DTO.ResponseMessageDTO;
-import com.blps_lab1.demo.DTO.UserDTO;
+import com.blps_lab1.demo.DTO.*;
 import com.blps_lab1.demo.beans.Product;
 import com.blps_lab1.demo.beans.User;
 import com.blps_lab1.demo.exceptions.ProductNotFoundException;
 import com.blps_lab1.demo.exceptions.ProductValidationException;
 import com.blps_lab1.demo.exceptions.UserNotFoundException;
-import com.blps_lab1.demo.service.CartRepositoryService;
-import com.blps_lab1.demo.service.NotificationRepositoryService;
-import com.blps_lab1.demo.service.ProductRepositoryService;
-import com.blps_lab1.demo.service.UserRepositoryService;
+import com.blps_lab1.demo.service.*;
 import com.blps_lab1.demo.validation.ValidationProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +26,8 @@ import java.util.ArrayList;
 
 public class ProductsController {
 
-
+    @Autowired
+    private OrderRepositoryService orderRepositoryService;
     @Autowired
     private ProductRepositoryService productRepositoryService;
     @Autowired
@@ -41,6 +37,8 @@ public class ProductsController {
     @Autowired
     private CartRepositoryService cartRepositoryService;
     private ResponseMessageDTO message;
+
+
 
     @Autowired
     private Product product;
@@ -63,6 +61,38 @@ public class ProductsController {
         return this.productRepositoryService.saveFromDTO(productDTO, request);
     }
 
+    @PutMapping("/add_order")
+    @ApiOperation(value = "Add new order")
+    public ResponseEntity<ResponseMessageDTO> addOrder(@RequestBody OrderDTO orderDTO, HttpServletRequest request){
+        message = new ResponseMessageDTO();
+        try{
+            for(ProductDTO productDTO:orderDTO.getProducts()){
+                validationProductService.validateProductDTO(productDTO);
+            }
+        }catch (ProductValidationException e){
+            message.setMessage(e.getErrMessage());
+            return new ResponseEntity<>(this.message, e.getErrStatus());
+        }
+        try{
+            User user = this.userRepositoryService.getUserFromRequest(request);
+            return this.orderRepositoryService.addOrder(user, orderDTO.getProducts());
+        }catch (UserNotFoundException e){
+            this.message.setMessage(e.getErrMessage());
+            return new ResponseEntity<>(message, e.getErrStatus());
+        }
+    }
+
+    @PatchMapping("/order_status")
+    @ApiOperation(value = "Change status")
+    public ResponseEntity<ResponseMessageDTO> changeOrderStatus(@RequestBody OrderDTO orderDTO, HttpServletRequest request){
+        message = new ResponseMessageDTO();
+        try{
+            return this.orderRepositoryService.updateStatus(orderDTO.getId(), orderDTO.getStatus());
+        }catch (DataIntegrityViolationException e){
+            this.message.setMessage("Can't find order");
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+    }
     @GetMapping("/products")
     @ApiOperation(value = "Get list of products")
     public ArrayList<ProductDTO> getAllProducts(){
@@ -95,6 +125,19 @@ public class ProductsController {
         try{
             User user = this.userRepositoryService.getUserFromRequest(request);
             return this.cartRepositoryService.getAllProductForUser(user.getID());
+        }catch (UserNotFoundException e){
+            this.message.setMessage(e.getErrMessage());
+            return new ResponseEntity<>(message, e.getErrStatus());
+        }
+    }
+
+    @GetMapping("/order")
+    @ApiOperation(value = "Get orders for user")
+    public ResponseEntity getOrder(HttpServletRequest request){
+        message = new ResponseMessageDTO();
+        try{
+            User user = this.userRepositoryService.getUserFromRequest(request);
+            return this.orderRepositoryService.getAllOrderForUser(user.getID());
         }catch (UserNotFoundException e){
             this.message.setMessage(e.getErrMessage());
             return new ResponseEntity<>(message, e.getErrStatus());

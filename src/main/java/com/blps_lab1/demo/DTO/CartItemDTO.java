@@ -5,6 +5,15 @@ import java.io.Serializable;
 public class CartItemDTO implements Serializable {
     private UserDTO userDTO;
     private ProductDTO productDTO;
+    private Integer count;
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
 
     public ProductDTO getProductDTO() {
         return productDTO;

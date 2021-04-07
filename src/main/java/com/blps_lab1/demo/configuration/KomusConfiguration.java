@@ -1,11 +1,9 @@
 package com.blps_lab1.demo.configuration;
 
 
-import com.blps_lab1.demo.DTO.NotificationDTO;
-import com.blps_lab1.demo.DTO.ProductDTO;
-import com.blps_lab1.demo.DTO.ResponseMessageDTO;
-import com.blps_lab1.demo.DTO.UserDTO;
+import com.blps_lab1.demo.DTO.*;
 import com.blps_lab1.demo.beans.Notification;
+import com.blps_lab1.demo.beans.Order;
 import com.blps_lab1.demo.beans.Product;
 import com.blps_lab1.demo.beans.User;
 import org.springframework.context.annotation.Bean;
@@ -48,6 +46,10 @@ public class KomusConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     @Scope(scopeName = "prototype")
+    public Order getOrder() { return new Order();}
+
+    @Bean
+    @Scope(scopeName = "prototype")
     public ResponseMessageDTO getResponseMessageDTO(){
         return new ResponseMessageDTO();
     }
@@ -69,4 +71,8 @@ public class KomusConfiguration extends WebMvcConfigurerAdapter {
     public NotificationDTO getNotificationDTO() {
         return new NotificationDTO();
     }
+
+    @Bean(name = "OrderDTO")
+    @Scope(scopeName = "prototype")
+    public OrderDTO getOrderDTO() { return new OrderDTO();}
 }

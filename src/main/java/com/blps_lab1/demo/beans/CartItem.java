@@ -1,5 +1,7 @@
 package com.blps_lab1.demo.beans;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,12 +17,22 @@ public class CartItem {
     @ManyToOne
     @JoinColumn(name="product_id", referencedColumnName="id")
     private Product product;
+    @NotNull
+    private Integer count;
 
-    public void setCartItem(Product new_product, User subscriber){
+    public void setCartItem(Product new_product, User subscriber, Integer count){
         this.product = new_product;
         this.user = subscriber;
+        this.count = count;
     }
 
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
 
     public void setProduct(Product product) {
         this.product = product;

@@ -11,6 +11,15 @@ public class ProductDTO implements Serializable {
     private String country_contributor;
     private String size;
     private String description;
+    private Integer count;
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
 
     public Long getId() {
         return Id;

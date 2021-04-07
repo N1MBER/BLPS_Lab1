@@ -57,7 +57,8 @@ public class NotificationRepositoryService {
         while (iterator.hasNext()){
             notification = (Notification) iterator.next();
             try {
-                products.add(productRepositoryService.findByID(notification.getProduct().getID()));
+                if (notification.getProduct().getCount() != 0)
+                    products.add(productRepositoryService.findByID(notification.getProduct().getID()));
             }catch (ProductNotFoundException e){
 
             }

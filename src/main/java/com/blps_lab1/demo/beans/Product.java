@@ -20,6 +20,16 @@ public class Product {
     private String country_contributor;
     private String size;
     private String description;
+    @NotNull
+    private Integer count;
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
 
     public Integer getWeight() {
         return weight;

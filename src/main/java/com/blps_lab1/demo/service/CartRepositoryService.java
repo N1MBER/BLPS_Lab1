@@ -79,7 +79,7 @@ public class CartRepositoryService {
             return new ResponseEntity<>(responseMessageDTO, HttpStatus.BAD_REQUEST);
         }
         CartItem cartItem = new CartItem();
-        cartItem.setCartItem(product, user);
+        cartItem.setCartItem(product, user,1);
         try {
             this.save(cartItem);
             responseMessageDTO.setMessage("Added to cart list");
