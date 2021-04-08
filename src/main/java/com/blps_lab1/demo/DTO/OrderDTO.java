@@ -15,19 +15,19 @@ public class OrderDTO implements Serializable {
     private Long ID;
     private UserDTO user;
     private List<ProductDTO> products;
-    private Date submit_date;
-    private Date update_date;
+    private String submit_date;
+    private String update_date;
     private StatusOrder status;
 
     public List<ProductDTO> getProducts() {
         return products;
     }
 
-    public Date getSubmit_date() {
+    public String getSubmit_date() {
         return submit_date;
     }
 
-    public Date getUpdate_date() {
+    public String getUpdate_date() {
         return update_date;
     }
 
@@ -55,11 +55,11 @@ public class OrderDTO implements Serializable {
         this.status = status;
     }
 
-    public void setSubmit_date(Date submit_date) {
+    public void setSubmit_date(String submit_date) {
         this.submit_date = submit_date;
     }
 
-    public void setUpdate_date(Date update_date) {
+    public void setUpdate_date(String update_date) {
         this.update_date = update_date;
     }
 

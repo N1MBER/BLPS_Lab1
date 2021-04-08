@@ -51,11 +51,14 @@ public class OrderRepositoryService {
             return new ResponseEntity<>(responseMessageDTO, HttpStatus.BAD_REQUEST);
         }
         Order order = new Order();
+        order.setUpdate_date(new Date());
+        order.setSubmit_date(new Date());
         ArrayList<Product> productArrayList = new ArrayList<>();
         for (ProductDTO productDTO: products){
             productArrayList.add(dtoConverter.productFromDTOConvertor(productDTO));
         }
         order.setOrder(user,productArrayList,new Date(),new Date(),StatusOrder.ADDED);
+        order.setId(Integer.toUnsignedLong(order.hashCode()));
         try {
             this.save(order);
             responseMessageDTO.setMessage("Added to cart list");
@@ -75,6 +78,7 @@ public class OrderRepositoryService {
         try {
             Order order = this.orderRepository.findByID(id);
             order.setStatus(status);
+            order.setUpdate_date(new Date());
             this.orderRepository.save(order);
             responseMessageDTO.setMessage("Status is updated");
             return new ResponseEntity<>(responseMessageDTO, HttpStatus.OK);

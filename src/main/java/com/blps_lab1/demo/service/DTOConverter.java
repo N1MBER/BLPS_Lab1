@@ -67,9 +67,10 @@ public class DTOConverter {
         for (Product product: order.getProducts()){
             productDTOS.add(this.productDTOConvertor(product));
         }
+        orderDTO.setId(order.getId());
         orderDTO.setProducts(productDTOS);
-        orderDTO.setSubmit_date(order.getSubmit_date());
-        orderDTO.setUpdate_date(order.getUpdate_date());
+        orderDTO.setSubmit_date(order.getSubmit_date().toString());
+        orderDTO.setUpdate_date(order.getUpdate_date().toString());
         orderDTO.setUser(this.userDTOConvertor(order.getUser()));
         return orderDTO;
     }
