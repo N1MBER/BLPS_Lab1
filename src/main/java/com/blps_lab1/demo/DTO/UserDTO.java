@@ -3,7 +3,6 @@ package com.blps_lab1.demo.DTO;
 import java.io.Serializable;
 
 public class UserDTO implements Serializable {
-    private Long Id;
     private String email;
     private String password;
     private String name;
@@ -18,9 +17,8 @@ public class UserDTO implements Serializable {
 
     public UserDTO(){}
 
-    public void setDTO(Long id, String email, String name, String surname){
+    public void setDTO(String email, String name, String surname){
         this.email = email;
-        this.Id = id;
         this.surname = surname;
         this.name = name;
     }
@@ -29,9 +27,6 @@ public class UserDTO implements Serializable {
         return name;
     }
 
-    public Long getId() {
-        return Id;
-    }
 
     public String getEmail() {
         return email;
@@ -47,10 +42,6 @@ public class UserDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setId(Long id) {
-        Id = id;
     }
 
     public void setName(String name) {

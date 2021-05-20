@@ -1,35 +1,44 @@
 package com.blps_lab1.demo.service;
 
+import com.blps_lab1.demo.beans.Role;
 import com.blps_lab1.demo.beans.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class KomusUserDetails implements UserDetails {
-    private String email;
-    private String password;
+    private User user;
 
-    public static KomusUserDetails fromUserToUserDetailsService(User user){
-        KomusUserDetails komusDetails = new KomusUserDetails();
-        komusDetails.email = user.getEmail();
-        komusDetails.password = user.getPassword();
-        return komusDetails;
+    public KomusUserDetails(User user){
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<Role> roles = user.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+        return authorities;
     }
+
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return user.getEmail();
     }
 
     @Override

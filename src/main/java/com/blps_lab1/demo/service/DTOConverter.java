@@ -1,9 +1,8 @@
 package com.blps_lab1.demo.service;
 
-import com.blps_lab1.demo.DTO.OrderDTO;
-import com.blps_lab1.demo.DTO.ProductDTO;
-import com.blps_lab1.demo.DTO.UserDTO;
+import com.blps_lab1.demo.DTO.*;
 import com.blps_lab1.demo.beans.Order;
+import com.blps_lab1.demo.beans.Payment;
 import com.blps_lab1.demo.beans.Product;
 import com.blps_lab1.demo.beans.User;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ public class DTOConverter {
     public UserDTO userDTOConvertor(User user){
         UserDTO userDTO = new UserDTO();
         userDTO.setDTO(
-                user.getID(),
                 user.getEmail(),
                 user.getName(),
                 user.getSurname()
@@ -26,7 +24,6 @@ public class DTOConverter {
 
     public ProductDTO productDTOConvertor(Product product){
         ProductDTO productDTO = new ProductDTO();
-        productDTO.setId(product.getID());
         productDTO.setPrice(product.getPrice());
         productDTO.setName(product.getName());
         return productDTO;
@@ -45,9 +42,6 @@ public class DTOConverter {
         user.setEmail(userDTO.getEmail());
         user.setSurname(userDTO.getSurname());
         user.setPassword(userDTO.getPassword());
-        if (userDTO.getId() != null){
-            user.setID(userDTO.getId());
-        }
         return user;
     }
 
@@ -55,8 +49,6 @@ public class DTOConverter {
         Product product = new Product();
         product.setPrice(productDTO.getPrice());
         product.setName(productDTO.getName());
-        if (productDTO.getId() != null)
-            product.setID(productDTO.getId());
         return product;
     }
 
@@ -74,5 +66,31 @@ public class DTOConverter {
         orderDTO.setUser(this.userDTOConvertor(order.getUser()));
         return orderDTO;
     }
+
+    public PaymentDTO paymentDTOConvertor(Payment payment){
+        PaymentDTO paymentDTO = new PaymentDTO();
+        paymentDTO.setPaymentType(payment.getPaymentType());
+        paymentDTO.setDate(payment.getDate());
+        ArrayList <Long> productIds = new ArrayList<>();
+        for (Product product: payment.getProducts()){
+            productIds.add(product.getID());
+        }
+        paymentDTO.setProducts_ids(productIds);
+        return paymentDTO;
+    }
+
+    public PaymentElementDTO paymentElementDTOConvertor(Payment payment){
+        PaymentElementDTO paymentElementDTO = new PaymentElementDTO();
+        paymentElementDTO.setPaymentType(payment.getPaymentType());
+        paymentElementDTO.setDate(payment.getDate());
+        paymentElementDTO.setId(payment.getID());
+        ArrayList <Long> productIds = new ArrayList<>();
+        for (Product product: payment.getProducts()){
+            productIds.add(product.getID());
+        }
+        paymentElementDTO.setProducts_ids(productIds);
+        return paymentElementDTO;
+    }
+
 
 }

@@ -7,6 +7,9 @@ import com.blps_lab1.demo.beans.User;
 import com.blps_lab1.demo.exceptions.UserNotFoundException;
 import com.blps_lab1.demo.repository.UserRepository;
 import com.blps_lab1.demo.utils.JWTUtils;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,7 +22,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserRepositoryService {
@@ -32,6 +37,10 @@ public class UserRepositoryService {
     private User user;
     @Autowired
     private DTOConverter dtoConverter;
+
+    private JAXBContext jaxbContext;
+
+    private String usersXMLPath = "/Users/n1mber/Reports/Бизнес Процессы Программных Систем/lab1/src/users.xml";
 
     Logger logger = LogManager.getLogger(UserRepositoryService.class);
 
@@ -70,13 +79,12 @@ public class UserRepositoryService {
     }
 
 
-    public ResponseEntity<ResponseMessageDTO> authUserDTO(UserDTO userDTO){
+    public ResponseEntity authUserDTO(UserDTO userDTO){
         ResponseMessageDTO message = new ResponseMessageDTO();
         try {
             user = this.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
             TokenObject token = new TokenObject(jwtUtils.generateToken(user.getEmail()));
-            message.setMessage(token.getToken());
-            return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(token, HttpStatus.ACCEPTED);
         }catch (UserNotFoundException e){
             message.setMessage(e.getErrMessage());
             return new ResponseEntity<>(message, e.getErrStatus());
@@ -95,6 +103,34 @@ public class UserRepositoryService {
         return user;
     }
 
+    public void setUsersToXML(List<User> users){
+        try{
+            jaxbContext = org.eclipse.persistence.jaxb.JAXBContextFactory
+                    .createContext(new Class[]{User.class}, null);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//            for(User currentUser: users){
+//            }
+            marshaller.marshal(users, new File(usersXMLPath));
+
+        } catch (JAXBException e){
+            System.err.println(e.getMessage());
+            e.getStackTrace();
+        }
+    }
+
+    public void setUsersToXML(User user){
+        try{
+            jaxbContext = org.eclipse.persistence.jaxb.JAXBContextFactory
+                    .createContext(new Class[]{User.class}, null);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(user, new File(usersXMLPath));
+        } catch (JAXBException e){
+            System.err.println(e.getMessage());
+            e.getStackTrace();
+        }
+    }
 
     public User findByEmailAndPassword(String email, String password) throws UserNotFoundException{
         User user  = this.userRepository.findByEmailAndPassword(email, password);
@@ -114,6 +150,7 @@ public class UserRepositoryService {
 
     public ArrayList<UserDTO> getAllUsers(){
         ArrayList<User> users = this.userRepository.findAll();
+        setUsersToXML(users);
         ArrayList<UserDTO> userDTOS = new ArrayList<>();
         for (User user: users){
             userDTOS.add(dtoConverter.userDTOConvertor(user));

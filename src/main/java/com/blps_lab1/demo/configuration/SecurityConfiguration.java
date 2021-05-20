@@ -35,12 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JWTUtils jwtUtils(){
-        return new JWTUtils();
-    }
-
-
-    @Bean
     public KomusUserDetailsService changeOrgUserDetailsService(){
         return new KomusUserDetailsService();
     }
@@ -61,16 +55,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/register", "/auth").permitAll().antMatchers(
+                .antMatchers("/register").permitAll().antMatchers(
                 "/api/add_product",
-                "/api/add_to_cart/*",
-                "/api/cart",
-                "/api/cart/*",
-                "/api/clear_cart",
-                "/api/favorite/*",
-                "/api/favorites",
-                "/api/unfavorite/*",
-                "/api/users"
+                "/users/add_to_cart/*",
+                "/users/cart",
+                "/users/cart/*",
+                "/users/clear_cart",
+                "/users/favorite/*",
+                "/users/favorites",
+                "/users/unfavorite/*",
+                "/users/users",
+                "/payment/*"
         ).authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

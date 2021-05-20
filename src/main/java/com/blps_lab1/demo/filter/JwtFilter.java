@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.servlet.*;
 
@@ -46,9 +47,9 @@ public class JwtFilter implements Filter{
         String token = jwtUtils.getTokenFromRequest((HttpServletRequest) servletRequest);
         if(token != null && jwtUtils.validateToken(token)){
             logger.log(Level.INFO, "Filter logs: token exists");
-            String email = jwtUtils.getEmailFromToken(token);
             try{
-                KomusUserDetails changeOrgUserDetails = komusUserDetailsService.loadUserByUsername(email);
+                String email = jwtUtils.getEmailFromToken(token);
+                UserDetails changeOrgUserDetails = komusUserDetailsService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(changeOrgUserDetails, null, null);
                 SecurityContextHolder.getContext().setAuthentication(auth);
                 logger.log(Level.INFO, "Filter logs: auth completed");

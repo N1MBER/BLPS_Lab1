@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="91">
+   <email>socialfox33@gmail.com</email>
+   <password>Maxim_123</password>
+   <surname>Kolesnikov</surname>
+</user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="92">
+   <email>n1mber33@gmail.com</email>
+   <password>Maxim_123</password>
+   <surname>Kolesnikov</surname>
+</user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="93">
+   <email>lolka@gmail.com</email>
+   <password>Maxim_123</password>
+   <surname>Kolesnikov</surname>
+</user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="98">
+   <email>n1mberspb33@gmail.com</email>
+   <password>SocialKmax2512</password>
+   <surname>string</surname>
+</user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="100">
+   <email>n1mber@gmail.com</email>
+   <password>SocialKmax2512</password>
+   <surname>string</surname>
+</user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="101">
+   <email>string@mail.ru</email>
+   <password>string123</password>
+   <surname>string</surname>
+</user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="103">
+   <email>exam@mail.ru</email>
+   <password>string123</password>
+   <surname>string</surname>
+   <roles>
+      <id>1</id>
+      <name>ROLE_USER</name>
+   </roles>
+</user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="106">
+   <email>string123123@mail.ru</email>
+   <password>stringExample1337</password>
+   <surname>Mesdsad</surname>
+   <roles>
+      <id>1</id>
+      <name>ROLE_USER</name>
+   </roles>
+</user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="107">
+   <email>example123@mail.ru</email>
+   <password>stringExample1337</password>
+   <surname>Mesdsad</surname>
+   <roles>
+      <id>1</id>
+      <name>ROLE_USER</name>
+   </roles>
+</user>

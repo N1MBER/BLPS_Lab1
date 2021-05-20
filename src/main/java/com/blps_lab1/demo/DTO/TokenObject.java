@@ -1,17 +1,33 @@
 package com.blps_lab1.demo.DTO;
 
 public class TokenObject {
-    private String token;
-
-    public TokenObject(String token){
-        this.token = token;
+    private String accessToken;
+    private String refreshToken;
+    public TokenObject(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public TokenObject(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
     }
 
-    public String getToken() {
-        return token;
+    public TokenObject() {
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

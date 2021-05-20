@@ -2,15 +2,23 @@ package com.blps_lab1.demo.beans;
 
 
 import com.sun.istack.NotNull;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Data
 @Entity
 @Table(name = "komus_users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
     @Id
+    @XmlAttribute
     @GeneratedValue
     private Long ID;
 
@@ -24,7 +32,16 @@ public class User {
     @NotNull
     private String surname;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public Long getID() {
         return ID;

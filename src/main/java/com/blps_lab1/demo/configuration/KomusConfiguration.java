@@ -2,10 +2,7 @@ package com.blps_lab1.demo.configuration;
 
 
 import com.blps_lab1.demo.DTO.*;
-import com.blps_lab1.demo.beans.Notification;
-import com.blps_lab1.demo.beans.Order;
-import com.blps_lab1.demo.beans.Product;
-import com.blps_lab1.demo.beans.User;
+import com.blps_lab1.demo.beans.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -30,6 +27,10 @@ public class KomusConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     @Scope(scopeName = "prototype")
     public User getUser(){ return new User(); }
+
+    @Bean
+    @Scope(scopeName = "prototype")
+    public Payment getPayment(){ return new Payment(); }
 
     @Bean
     @Scope(scopeName = "prototype")

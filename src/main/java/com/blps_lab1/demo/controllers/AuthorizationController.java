@@ -1,10 +1,16 @@
 package com.blps_lab1.demo.controllers;
 
+import com.blps_lab1.demo.DTO.RefreshDTO;
 import com.blps_lab1.demo.DTO.ResponseMessageDTO;
+import com.blps_lab1.demo.DTO.TokenObject;
 import com.blps_lab1.demo.DTO.UserDTO;
 import com.blps_lab1.demo.exceptions.UserValidationException;
+import com.blps_lab1.demo.service.KomusUserDetailsService;
 import com.blps_lab1.demo.service.UserRepositoryService;
+import com.blps_lab1.demo.utils.JWTUtils;
 import com.blps_lab1.demo.validation.ValidationUserService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.SignatureException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,41 +18,67 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/auth")
 public class  AuthorizationController {
 
     @Autowired
     private UserRepositoryService userRepositoryService;
+
+    @Autowired
+    private KomusUserDetailsService komusUserDetailsService;
+
     @Autowired
     private ValidationUserService validationUserService;
 
-    private ResponseMessageDTO message;
+
+    @Autowired
+    private JWTUtils jwTutils;
 
 
     @PostMapping("/register")
     @ApiOperation(value = "Register new user")
     public ResponseEntity<ResponseMessageDTO> register(@RequestBody UserDTO userDTO) {
-        this.message = new ResponseMessageDTO();
+        ResponseMessageDTO message = new ResponseMessageDTO();
         try{
             validationUserService.validateUserDTO(userDTO);
         }catch (UserValidationException e) {
-            this.message.setMessage(e.getErrMessage());
-            return new ResponseEntity<>(this.message, e.getErrStatus());
+            message.setMessage(e.getErrMessage());
+            return new ResponseEntity<>(message, e.getErrStatus());
         }
-        return userRepositoryService.registerUserDTO(userDTO);
+        return komusUserDetailsService.registerUserDTO(userDTO);
     }
 
-    @PostMapping("/auth")
+    @PostMapping("/")
     @ApiOperation(value = "Authorization")
     public ResponseEntity auth(@RequestBody UserDTO userDTO){
-        this.message = new ResponseMessageDTO();
+        ResponseMessageDTO message = new ResponseMessageDTO();
         try{
             validationUserService.validateUserDTO_FOR_AUTH(userDTO);
         }catch (UserValidationException e) {
-            this.message.setMessage(e.getErrMessage());
-            return new ResponseEntity<>(this.message, e.getErrStatus());
+            message.setMessage(e.getErrMessage());
+            return new ResponseEntity<>(message, e.getErrStatus());
         }
-        return userRepositoryService.authUserDTO(userDTO);
+        return komusUserDetailsService.authUserDTO(userDTO);
+    }
+
+    @PostMapping("/refresh")
+    @ApiOperation(value = "Refresh")
+    public ResponseEntity<TokenObject> refresh(HttpServletRequest servletRequest, @RequestBody RefreshDTO refreshDTO){
+        String token = refreshDTO.getRefresh();
+        ResponseMessageDTO message = new ResponseMessageDTO();
+        try{
+            jwTutils.validateToken(token);
+            return jwTutils.refreshToken(token);
+        }catch (ExpiredJwtException e) {
+            message.setMessage("Refresh token expired time ended, please authorize again");
+            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+        }catch (SignatureException e){
+            message.setMessage("Refresh token is not valid, please try again");
+            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+        }
+
     }
 }
