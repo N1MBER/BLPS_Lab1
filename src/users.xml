@@ -64,3 +64,13 @@
       <name>ROLE_USER</name>
    </roles>
 </user>
+<?xml version="1.0" encoding="UTF-8"?>
+<user ID="108">
+   <email>test@gmail.com</email>
+   <password>testPassword123</password>
+   <surname>Kolesnikov</surname>
+   <roles>
+      <id>1</id>
+      <name>ROLE_USER</name>
+   </roles>
+</user>
