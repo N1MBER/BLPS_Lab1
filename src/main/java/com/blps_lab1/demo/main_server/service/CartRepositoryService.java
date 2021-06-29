@@ -9,6 +9,7 @@ import com.blps_lab1.demo.main_server.exceptions.ProductNotFoundException;
 import com.blps_lab1.demo.main_server.repository.CartRepository;
 import com.blps_lab1.demo.main_server.utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +19,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 @Service
+@Profile("dev")
 public class CartRepositoryService {
     @Autowired
     private DTOConverter dtoConverter;
     @Autowired
-    private User user;
-    @Autowired
-    private Product product;
-    @Autowired
     private CartRepository cartRepository;
-    @Autowired
-    private UserRepositoryService userRepositoryService;
     @Autowired
     private ProductRepositoryService productRepositoryService;
 

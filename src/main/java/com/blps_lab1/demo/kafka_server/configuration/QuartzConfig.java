@@ -7,6 +7,7 @@ import org.quartz.Trigger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.quartz.*;
 
 import javax.sql.DataSource;
@@ -14,6 +15,7 @@ import java.util.Calendar;
 import java.util.Properties;
 
 @Configuration
+@Profile("stats")
 public class QuartzConfig {
     private ApplicationContext applicationContext;
     private DataSource dataSource;

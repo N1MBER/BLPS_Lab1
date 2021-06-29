@@ -13,6 +13,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Profile("dev")
 public class UserRepositoryService {
 
     @Autowired
@@ -48,6 +50,7 @@ public class UserRepositoryService {
     public UserRepository getUserRepository(){
         return userRepository;
     }
+
     public User getUserFromRequest(HttpServletRequest request) throws UserNotFoundException{
         String token = jwtUtils.getTokenFromRequest(request);
         String email = jwtUtils.getEmailFromToken(token);

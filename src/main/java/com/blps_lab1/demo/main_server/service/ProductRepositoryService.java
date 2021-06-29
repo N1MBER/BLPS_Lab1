@@ -7,6 +7,7 @@ import com.blps_lab1.demo.main_server.exceptions.ProductNotFoundException;
 import com.blps_lab1.demo.main_server.repository.ProductRepository;
 import com.blps_lab1.demo.main_server.utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Profile("dev")
 public class ProductRepositoryService {
 
     @Autowired

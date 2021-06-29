@@ -6,10 +6,12 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
 @DisallowConcurrentExecution
+@Profile("stats")
 public class NotificationJob implements Job {
 
     @Autowired

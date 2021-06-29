@@ -12,7 +12,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.List;
 
 @Service
-//@Profile("stats")
+@Profile("stats")
 public class MailService {
 
     @Autowired

@@ -13,6 +13,7 @@ import com.blps_lab1.demo.main_server.validation.ValidationProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/order")
 @Api(value = "Order api")
+@Profile("dev")
 public class OrderController {
     @Autowired
     private OrderRepositoryService orderRepositoryService;

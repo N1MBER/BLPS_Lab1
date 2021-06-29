@@ -4,6 +4,7 @@ import com.atomikos.icatch.jta.UserTransactionManager;
 import com.blps_lab1.demo.main_server.XA.PaymentAddXA;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
@@ -11,6 +12,7 @@ import javax.transaction.SystemException;
 
 @Configuration
 @EnableTransactionManagement
+@Profile("dev")
 public class AtomikosConfiguration {
 
     @Bean

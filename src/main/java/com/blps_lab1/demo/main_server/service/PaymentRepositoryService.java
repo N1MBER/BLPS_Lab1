@@ -7,6 +7,7 @@ import com.blps_lab1.demo.main_server.beans.*;
 import com.blps_lab1.demo.main_server.repository.PaymentRepository;
 import com.blps_lab1.demo.main_server.utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Profile("dev")
 public class PaymentRepositoryService {
     @Autowired
     private DTOConverter dtoConverter;
@@ -24,10 +26,7 @@ public class PaymentRepositoryService {
     private User user;
     @Autowired
     private PaymentRepository paymentRepository;
-    @Autowired
-    private UserRepositoryService userRepositoryService;
-    @Autowired
-    private ProductRepositoryService productRepositoryService;
+
 
     public void save(Payment payment){
         this.paymentRepository.save(payment);

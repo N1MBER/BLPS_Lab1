@@ -15,6 +15,7 @@ import com.blps_lab1.demo.main_server.validation.ValidationPaymentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/payment")
 @Api(value = "Payment api")
+@Profile("dev")
 public class PaymentController {
 
     @Autowired

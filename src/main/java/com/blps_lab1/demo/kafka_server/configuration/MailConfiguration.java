@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
-//@Profile("stats")
+@Profile("stats")
 @Configuration
 public class MailConfiguration {
 

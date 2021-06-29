@@ -3,8 +3,10 @@ package com.blps_lab1.demo.main_server.configuration;
 
 import com.blps_lab1.demo.main_server.DTO.*;
 import com.blps_lab1.demo.main_server.beans.*;
+import com.blps_lab1.demo.main_server.utils.JWTUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
+@Profile("dev")
 public class KomusConfiguration extends WebMvcConfigurerAdapter {
 
 
@@ -49,6 +52,7 @@ public class KomusConfiguration extends WebMvcConfigurerAdapter {
     @Scope(scopeName = "prototype")
     public Order getOrder() { return new Order();}
 
+
     @Bean
     @Scope(scopeName = "prototype")
     public ResponseMessageDTO getResponseMessageDTO(){
@@ -76,4 +80,5 @@ public class KomusConfiguration extends WebMvcConfigurerAdapter {
     @Bean(name = "OrderDTO")
     @Scope(scopeName = "prototype")
     public OrderDTO getOrderDTO() { return new OrderDTO();}
+
 }

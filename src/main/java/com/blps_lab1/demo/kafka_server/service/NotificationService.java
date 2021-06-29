@@ -10,13 +10,15 @@ import com.blps_lab1.demo.main_server.beans.User;
 import com.blps_lab1.demo.main_server.repository.NotificationRepository;
 import com.blps_lab1.demo.main_server.utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import org.springframework. kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Profile("stats")
 public class NotificationService {
 
     @Autowired
@@ -27,10 +29,15 @@ public class NotificationService {
     private DTOConverter dtoConverter;
     @Autowired
     private MailService mailService;
-    @Autowired
-    private KafkaTemplate<String, String> responseTemplate;
+//    @Autowired
+//    private KafkaTemplate<String, String> responseTemplate;
+//
+//    public NotificationService(KafkaTemplate<String,String> kafkaTemplate){
+//        this.responseTemplate = kafkaTemplate;
+//    }
 
     public void completeTask(Task task) {
+        System.out.println("Example");
         User user = task.getUser();
         List <Notification> notifications = notificationRepository.findAllByUserID(user.getID());
         List <Product> products = new ArrayList<>();
@@ -43,7 +50,7 @@ public class NotificationService {
             }
         }
         mailService.sendMailMessage(products, user.getID());
-        responseTemplate.send("kafka.tasks.response", task.getID() +" completed");
+//        responseTemplate.send("kafka.tasks.response", task.getID() +" completed");
         taskRepository.delete(task);
     }
 

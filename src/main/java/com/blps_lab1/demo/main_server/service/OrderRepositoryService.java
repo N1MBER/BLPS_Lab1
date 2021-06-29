@@ -10,6 +10,7 @@ import com.blps_lab1.demo.main_server.beans.User;
 import com.blps_lab1.demo.main_server.repository.OrderRepository;
 import com.blps_lab1.demo.main_server.utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,10 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Profile("dev")
 public class OrderRepositoryService {
     @Autowired
     private DTOConverter dtoConverter;
-    @Autowired
-    private User user;
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
@@ -98,10 +98,6 @@ public class OrderRepositoryService {
     }
 
 
-    public User getUser() {
-        return user;
-    }
-
     public DTOConverter getDtoConverter() {
         return dtoConverter;
     }
@@ -118,9 +114,6 @@ public class OrderRepositoryService {
         return userRepositoryService;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public void setOrderRepository(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;

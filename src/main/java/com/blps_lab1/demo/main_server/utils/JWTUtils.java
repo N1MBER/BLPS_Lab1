@@ -10,6 +10,7 @@ import com.blps_lab1.demo.main_server.service.KomusUserDetailsService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import java.util.Date;
 import static org.springframework.util.StringUtils.hasText;
 
 @Component
+@Profile("dev")
 public class JWTUtils {
     private static final String AUTHORIZATION = "Authorization";
     @Value("$(jwt.secret)")

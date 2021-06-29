@@ -17,6 +17,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+@Profile("dev")
 public class KomusUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;

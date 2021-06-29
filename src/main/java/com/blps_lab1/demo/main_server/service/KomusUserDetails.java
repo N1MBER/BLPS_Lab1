@@ -2,6 +2,7 @@ package com.blps_lab1.demo.main_server.service;
 
 import com.blps_lab1.demo.main_server.beans.Role;
 import com.blps_lab1.demo.main_server.beans.User;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+@Profile("dev")
 public class KomusUserDetails implements UserDetails {
     private User user;
 

@@ -1,6 +1,8 @@
 package com.blps_lab1.demo.main_server.service;
 
 import com.blps_lab1.demo.kafka_server.beans.Task;
+import com.blps_lab1.demo.kafka_server.job.NotificationJob;
+import com.blps_lab1.demo.kafka_server.service.NotificationService;
 import com.blps_lab1.demo.main_server.DTO.ProductDTO;
 import com.blps_lab1.demo.main_server.DTO.ResponseMessageDTO;
 import com.blps_lab1.demo.main_server.beans.Notification;
@@ -10,6 +12,7 @@ import com.blps_lab1.demo.main_server.exceptions.ProductNotFoundException;
 import com.blps_lab1.demo.main_server.repository.NotificationRepository;
 import com.blps_lab1.demo.main_server.utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,7 @@ import java.util.List;
 
 @EnableKafka
 @Service
+@Profile("dev")
 public class NotificationRepositoryService {
 
     @Autowired
@@ -40,6 +44,9 @@ public class NotificationRepositoryService {
     private UserRepositoryService userRepositoryService;
     @Autowired
     private ProductRepositoryService productRepositoryService;
+
+//    @Autowired
+//    private NotificationJob notificationJob;
 
     public NotificationRepository getNotificationRepository() {
         return notificationRepository;

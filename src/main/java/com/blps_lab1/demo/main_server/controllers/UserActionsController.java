@@ -14,6 +14,7 @@ import com.blps_lab1.demo.main_server.validation.ValidationProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/user")
 @Api(value = "User actions api")
+@Profile("dev")
 public class UserActionsController {
     @Autowired
     private NotificationRepositoryService notificationRepositoryService;
