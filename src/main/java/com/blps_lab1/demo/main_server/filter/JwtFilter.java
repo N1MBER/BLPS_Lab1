@@ -29,7 +29,6 @@ import java.io.IOException;
         "/api/unfavorite/*",
         "/api/users"
 })
-@Profile("dev")
 public class JwtFilter implements Filter{
 
     @Autowired

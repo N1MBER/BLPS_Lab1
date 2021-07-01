@@ -21,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-@Profile("dev")
 public class OrderRepositoryService {
     @Autowired
     private DTOConverter dtoConverter;

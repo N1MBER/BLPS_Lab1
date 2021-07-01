@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 @Service
-@Profile("dev")
 public class CartRepositoryService {
     @Autowired
     private DTOConverter dtoConverter;

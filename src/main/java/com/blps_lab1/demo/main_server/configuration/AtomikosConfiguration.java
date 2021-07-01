@@ -12,7 +12,6 @@ import javax.transaction.SystemException;
 
 @Configuration
 @EnableTransactionManagement
-@Profile("dev")
 public class AtomikosConfiguration {
 
     @Bean

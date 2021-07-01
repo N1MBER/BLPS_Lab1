@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Profile("dev")
 public class ProductRepositoryService {
 
     @Autowired

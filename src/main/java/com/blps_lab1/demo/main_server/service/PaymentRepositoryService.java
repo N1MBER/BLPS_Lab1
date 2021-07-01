@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-@Profile("dev")
 public class PaymentRepositoryService {
     @Autowired
     private DTOConverter dtoConverter;

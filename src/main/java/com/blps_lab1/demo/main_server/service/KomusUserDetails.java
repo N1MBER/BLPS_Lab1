@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-@Profile("dev")
 public class KomusUserDetails implements UserDetails {
     private User user;
 

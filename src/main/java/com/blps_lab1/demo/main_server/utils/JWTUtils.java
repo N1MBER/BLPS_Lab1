@@ -21,7 +21,6 @@ import java.util.Date;
 import static org.springframework.util.StringUtils.hasText;
 
 @Component
-@Profile("dev")
 public class JWTUtils {
     private static final String AUTHORIZATION = "Authorization";
     @Value("$(jwt.secret)")

@@ -26,7 +26,6 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/payment")
 @Api(value = "Payment api")
-@Profile("dev")
 public class PaymentController {
 
     @Autowired

@@ -22,7 +22,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableWebSecurity
 @EnableSwagger2
-@Profile("dev")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired

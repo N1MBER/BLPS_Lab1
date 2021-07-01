@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/auth")
-@Profile("dev")
 public class  AuthorizationController {
 
     @Autowired

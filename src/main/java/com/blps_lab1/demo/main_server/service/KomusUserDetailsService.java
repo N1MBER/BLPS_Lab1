@@ -33,7 +33,6 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
-@Profile("dev")
 public class KomusUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;

@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/order")
 @Api(value = "Order api")
-@Profile("dev")
 public class OrderController {
     @Autowired
     private OrderRepositoryService orderRepositoryService;

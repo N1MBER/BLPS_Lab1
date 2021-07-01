@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Profile("dev")
 public class PaymentAddXA {
 
     @Autowired

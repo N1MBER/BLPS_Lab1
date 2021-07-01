@@ -1,12 +1,10 @@
 package com.blps_lab1.demo.main_server.service;
 
-import com.blps_lab1.demo.kafka_server.beans.Task;
-import com.blps_lab1.demo.kafka_server.job.NotificationJob;
-import com.blps_lab1.demo.kafka_server.service.NotificationService;
 import com.blps_lab1.demo.main_server.DTO.ProductDTO;
 import com.blps_lab1.demo.main_server.DTO.ResponseMessageDTO;
 import com.blps_lab1.demo.main_server.beans.Notification;
 import com.blps_lab1.demo.main_server.beans.Product;
+import com.blps_lab1.demo.main_server.beans.Task;
 import com.blps_lab1.demo.main_server.beans.User;
 import com.blps_lab1.demo.main_server.exceptions.ProductNotFoundException;
 import com.blps_lab1.demo.main_server.repository.NotificationRepository;
@@ -27,7 +25,6 @@ import java.util.List;
 
 @EnableKafka
 @Service
-@Profile("dev")
 public class NotificationRepositoryService {
 
     @Autowired

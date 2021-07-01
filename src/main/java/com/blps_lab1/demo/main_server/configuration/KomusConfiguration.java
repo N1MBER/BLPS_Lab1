@@ -14,7 +14,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@Profile("dev")
 public class KomusConfiguration extends WebMvcConfigurerAdapter {
 
 

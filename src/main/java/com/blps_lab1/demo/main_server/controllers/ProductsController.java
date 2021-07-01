@@ -22,7 +22,6 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/product")
 @Api(value = "Product api")
-@Profile("dev")
 public class ProductsController {
 
     @Autowired

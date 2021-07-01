@@ -1,10 +1,6 @@
-package com.blps_lab1.demo.kafka_server.beans;
-
-import com.blps_lab1.demo.main_server.beans.Notification;
-import com.blps_lab1.demo.main_server.beans.User;
+package com.blps_lab1.demo.main_server.beans;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity

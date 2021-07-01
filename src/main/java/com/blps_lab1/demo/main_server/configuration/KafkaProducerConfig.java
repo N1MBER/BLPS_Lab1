@@ -1,6 +1,6 @@
 package com.blps_lab1.demo.main_server.configuration;
 
-import com.blps_lab1.demo.kafka_server.beans.Task;
+import com.blps_lab1.demo.main_server.beans.Task;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
@@ -18,10 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@Profile("dev")
 public class KafkaProducerConfig {
 
-    private final String kafkaServer="http://localhost:8080";
+    private final String kafkaServer="http://localhost:9092";
 
     @Bean
     public Map<String, Object> producerConfigs() {

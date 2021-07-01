@@ -24,7 +24,6 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/user")
 @Api(value = "User actions api")
-@Profile("dev")
 public class UserActionsController {
     @Autowired
     private NotificationRepositoryService notificationRepositoryService;
