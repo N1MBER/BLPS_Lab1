@@ -19,12 +19,12 @@ import java.util.Map;
 
 @Configuration
 @Profile("stats")
-public class KafkaConfiguration {
+public class KafkaConsumerConfiguration {
 
-    @Value("${spring.kafka.consumer.group-id}")
+    @Value("${spring.kafka.consumer.group-id1}")
     private String kafkaGroupId;
 
-    private final String kafkaServer = "localhost:8080";
+    private final String kafkaServer = "http://localhost:9092";
 
 
     @Bean

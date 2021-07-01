@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @EnableKafka
-@Profile("stats")
+//@Profile("stats")
 public class TaskService {
 
     @Autowired
@@ -36,6 +36,7 @@ public class TaskService {
         System.out.println(task);
         notificationService.createStats();
         taskRepository.saveAndFlush(task);
+        throw new Error();
     }
 
     public void saveTask(Task task){

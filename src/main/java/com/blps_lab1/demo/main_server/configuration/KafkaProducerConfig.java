@@ -1,8 +1,11 @@
 package com.blps_lab1.demo.main_server.configuration;
 
 import com.blps_lab1.demo.kafka_server.beans.Task;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -18,7 +21,7 @@ import java.util.Map;
 @Profile("dev")
 public class KafkaProducerConfig {
 
-    private final String kafkaServer="localhost:8080";
+    private final String kafkaServer="http://localhost:8080";
 
     @Bean
     public Map<String, Object> producerConfigs() {
@@ -40,5 +43,10 @@ public class KafkaProducerConfig {
     @Bean
     public KafkaTemplate<Long, Task> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
+    }
+
+    @Bean
+    public NewTopic adviceTopic() {
+        return new NewTopic("kafka.tasks.add", 3, (short) 1);
     }
 }
